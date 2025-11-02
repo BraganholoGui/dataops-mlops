@@ -2,7 +2,7 @@ import pytest
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler
 from fastapi.testclient import TestClient
-from main import app, scaler, model
+from app.main import app, scaler, model
 
 client = TestClient(app)
 
