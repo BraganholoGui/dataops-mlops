@@ -26,15 +26,24 @@ def load_models():
 
 
 scaler, model = load_models()
-app = FastAPI()
+app = FastAPI(title="Fetal health API", openapi_tags=[
+    {
+        "name":"Health",
+        "description":"Get api health",
+    },
+    {
+        "name":"Prediction",
+        "description":"Model prediction",
+    },
+])
 
 
-@app.get('/')
-def home():
+@app.get('/', tags=['Health'])
+def api_health():
     return {"Hello": "World"}
 
 
-@app.post('/api/predict')
+@app.post('/api/predict', tags=['Prediction'])
 def predict(request: Data):
     received_data = np.array([
         request.baseline_value,
@@ -45,6 +54,9 @@ def predict(request: Data):
         request.severe_decelerations,
         request.prolongued_decelerations
     ]).reshape(1, -1)
+    print('model', model)
+    print('scaler', scaler)
+    print('received_data', received_data)
     prediction = model.predict(scaler.transform(received_data))[0]
     return {'prediction': prediction}
 
