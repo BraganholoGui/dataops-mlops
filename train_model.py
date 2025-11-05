@@ -9,6 +9,8 @@ from mlflow.tracking import MlflowClient
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
+from dotenv import load_dotenv
+load_dotenv()
 
 # Criando os argumentos para treinar o modelo
 logging.debug(f'Start data processing')
@@ -23,9 +25,9 @@ parser.add_argument('--n_estimators', type=int, required=True)
 args = parser.parse_args()
 
 # Configurando o MLflow para rastreamento dos experimentos
-MLFLOW_TRACKING_URI = args.tracking_uri
-MLFLOW_TRACKING_USERNAME = args.tracking_username
-MLFLOW_TRACKING_PASSWORD = args.tracking_password
+MLFLOW_TRACKING_URI = os.getenv("MLFLOW_TRACKING_URI")
+MLFLOW_TRACKING_USERNAME = os.getenv("MLFLOW_TRACKING_USERNAME")
+MLFLOW_TRACKING_PASSWORD = os.getenv("MLFLOW_TRACKING_PASSWORD")
 os.environ['MLFLOW_TRACKING_USERNAME'] = MLFLOW_TRACKING_USERNAME
 os.environ['MLFLOW_TRACKING_PASSWORD'] = MLFLOW_TRACKING_PASSWORD
 
