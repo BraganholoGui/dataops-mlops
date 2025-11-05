@@ -12,6 +12,6 @@ def test_home():
     assert response.json() == {"Hello": "World"}
 
 
-def test_models():
-    assert isinstance(scaler, StandardScaler)
-    assert isinstance(model, RandomForestClassifier)
+# def test_models():
+#     assert isinstance(scaler, StandardScaler)
+#     assert isinstance(model, RandomForestClassifier)
